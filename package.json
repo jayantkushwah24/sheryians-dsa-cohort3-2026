@@ -20,5 +20,6 @@
   "homepage": "https://github.com/jayantkushwah24/sheryians-dsa-cohort3-2026#readme",
   "dependencies": {
     "prompt-sync": "^4.2.0"
-  }
+  },
+  "devDependencies": {}
 }
