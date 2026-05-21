@@ -1,23 +1,48 @@
 /**
- * @param {number[]} pages - Array of book pages
- * @param {number} students - Number of students
- * @return {number} - Minimum number of maximum pages assigned to a student
+ * @param {number[]} arr
+ * @param {number} k
+ * @return s {number}
  */
-function allocateBooks(pages, students) {
-  if (k > pages.length) return -1;
-  let start = 0,
-    end = 0;
-  let ans = -1;
-  for (let i = 0; i < pages.length; i++) {
-    if (pages[i] > start) {
-      start = pages[i];
+
+class Solution {
+  findPages(arr, k) {
+    if (k > arr.length) return -1;
+
+    let f = 0,
+      l = 0;
+    let ans = -1;
+
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] > f) {
+        f = arr[i];
+      }
+      l += arr[i];
     }
-    end += pages[i];
-  }
-  while (start <= end) {
-    let mid = Math.floor((start + end) / 2);
-    let count = students;
-    let currSum = 0;
-    let maxPage = 0;
+
+    if (k == arr.length) return f;
+
+    while (f <= l) {
+      let maxPages = Math.floor((f + l) / 2);
+      let count = 1;
+      let pageSum = 0;
+      for (let j = 0; j < arr.length; j++) {
+        if (arr[j] + pageSum <= maxPages) {
+          pageSum += arr[j];
+        } else {
+          count += 1;
+          pageSum = 0;
+          j--;
+        }
+      }
+
+      if (count > k) {
+        f = maxPages + 1;
+      } else {
+        ans = maxPages;
+        l = maxPages - 1;
+      }
+    }
+
+    return ans;
   }
 }
